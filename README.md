@@ -1,14 +1,21 @@
-# WhatsSpeak
+<div align="center">
+      <h1> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png" width="80px"><br/>WhatsSpeak</h1>
+     </div>
 
 **WhatsSpeak** es una herramienta de análisis de mensajes exportados desde WhatsApp. Permite obtener estadísticas detalladas sobre la cantidad de mensajes enviados por cada usuario durante diferentes períodos de tiempo, como el mes actual, el año o desde el inicio hasta el final. Este análisis es útil para conocer patrones de comunicación y el comportamiento de los participantes en un chat de WhatsApp.
 
-## Características
+# Características
 
 -   Análisis de mensajes por usuario.
 -   Soporte para rangos de tiempo personalizables: mes actual, año actual, todos los tiempos.
 -   Visualización del top 20 de usuarios que más han hablado en el chat.
 -   Resultados organizados por cantidad de mensajes enviados.
 
+
+
+# Tecnología utilizada
+ ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+      
 ## Requisitos
 
 Para ejecutar este proyecto, asegúrate de tener instalados los siguientes programas:
@@ -22,12 +29,11 @@ Sigue estos pasos para instalar y ejecutar el proyecto localmente:
 
 1.  Clona el repositorio:
     
-    `git clone https://link-to-project` 
+    `git clone https://github.com/pipetboy2001/WhatsSpeak` 
     
 2.  Entra al directorio del proyecto:
     
-    `cd my-project` 
-    
+    `cd WhatsSpeak` 
     
 3.  Ejecuta el programa:
     
@@ -76,3 +82,5 @@ Solo necesitas colocar el archivo de chat exportado en el directorio raíz del p
 ### ¿Puedo analizar chats de grupos grandes?
 
 Sí, el programa es capaz de manejar chats con muchos mensajes y usuarios, aunque la velocidad de procesamiento puede depender del tamaño del archivo.
+
+    

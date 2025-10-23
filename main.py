@@ -1,7 +1,16 @@
 import sys
+import os
 from whatsapp_parser import agrupar_mensajes_generator
 from stats import contar_por_remitente_from_generator, top_n
 from dates import obtener_rango_fecha
+
+# Intentar cargar .env si python-dotenv está disponible (opcional)
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except Exception:
+    # python-dotenv no está disponible; continuamos usando os.environ
+    pass
 
 def mostrar_resultados(conteo_usuarios, etiqueta, tipo):
     if not conteo_usuarios:
@@ -54,11 +63,18 @@ def mostrar_menu():
     print("11. Salir")
 
 def main():
-    archivo = "chat.txt"
+    # Prioridad: primer argumento CLI > variable de entorno CHAT_FILE > valor por defecto 'chat.txt'
+    archivo = None
+    if len(sys.argv) > 1 and sys.argv[1].strip():
+        archivo = sys.argv[1].strip()
+    else:
+        archivo = os.environ.get('CHAT_FILE', 'chat.txt')
+
     try:
         open(archivo, 'r', encoding='utf-8').close()
     except FileNotFoundError:
         print(f"No se encontró el archivo de chat: {archivo}")
+        print("Especifica el archivo mediante la variable de entorno CHAT_FILE o pasando el nombre como argumento: python main.py <archivo>")
         sys.exit(1)
 
     while True:

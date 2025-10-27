@@ -2,6 +2,7 @@ import sys
 import os
 from whatsapp_parser import agrupar_mensajes_generator
 from stats import contar_por_remitente_from_generator, top_n
+from contacts import load_contacts_from_env, resolve_remitentes_generator
 from dates import obtener_rango_fecha
 
 # Intentar cargar .env si python-dotenv está disponible (opcional)
@@ -77,6 +78,9 @@ def main():
         print("Especifica el archivo mediante la variable de entorno CHAT_FILE o pasando el nombre como argumento: python main.py <archivo>")
         sys.exit(1)
 
+    # Cargar contactos (ruta configurable vía CONTACT_CSV en el env)
+    contactos_map = load_contacts_from_env('contact.csv')
+
     while True:
         mostrar_menu()
         opcion = input("Selecciona una opción (1-11): ")
@@ -88,60 +92,70 @@ def main():
         if opcion == "1":
             with open(archivo, 'r', encoding='utf-8') as f:
                 mensajes = agrupar_mensajes_generator(f)
+                mensajes = resolve_remitentes_generator(mensajes, contactos_map)
                 conteo = contar_por_remitente_from_generator(mensajes)
             mostrar_resultados(conteo, "todos los tiempos", "todos")
         elif opcion == "2":
             inicio, fin, nombre = obtener_rango_fecha('mes_anterior')
             with open(archivo, 'r', encoding='utf-8') as f:
                 mensajes = agrupar_mensajes_generator(f)
+                mensajes = resolve_remitentes_generator(mensajes, contactos_map)
                 conteo = contar_por_remitente_from_generator(mensajes, inicio, fin)
             mostrar_resultados(conteo, nombre, "mes")
         elif opcion == "3":
             inicio, fin, nombre = obtener_rango_fecha('mes_actual')
             with open(archivo, 'r', encoding='utf-8') as f:
                 mensajes = agrupar_mensajes_generator(f)
+                mensajes = resolve_remitentes_generator(mensajes, contactos_map)
                 conteo = contar_por_remitente_from_generator(mensajes, inicio, fin)
             mostrar_resultados(conteo, nombre, "mes")
         elif opcion == "4":
             inicio, fin, nombre = obtener_rango_fecha('año_actual')
             with open(archivo, 'r', encoding='utf-8') as f:
                 mensajes = agrupar_mensajes_generator(f)
+                mensajes = resolve_remitentes_generator(mensajes, contactos_map)
                 conteo = contar_por_remitente_from_generator(mensajes, inicio, fin)
             mostrar_resultados(conteo, nombre, "año")
         elif opcion == "5":
             inicio, fin, nombre = obtener_rango_fecha('año_anterior')
             with open(archivo, 'r', encoding='utf-8') as f:
                 mensajes = agrupar_mensajes_generator(f)
+                mensajes = resolve_remitentes_generator(mensajes, contactos_map)
                 conteo = contar_por_remitente_from_generator(mensajes, inicio, fin)
             mostrar_resultados(conteo, nombre, "año")
         elif opcion == "6":
             # Menos hablador: todos los tiempos
             with open(archivo, 'r', encoding='utf-8') as f:
                 mensajes = agrupar_mensajes_generator(f)
+                mensajes = resolve_remitentes_generator(mensajes, contactos_map)
                 conteo = contar_por_remitente_from_generator(mensajes)
             mostrar_menos_hablador(conteo, "todos los tiempos")
         elif opcion == "7":
             inicio, fin, nombre = obtener_rango_fecha('mes_anterior')
             with open(archivo, 'r', encoding='utf-8') as f:
                 mensajes = agrupar_mensajes_generator(f)
+                mensajes = resolve_remitentes_generator(mensajes, contactos_map)
                 conteo = contar_por_remitente_from_generator(mensajes, inicio, fin)
             mostrar_menos_hablador(conteo, nombre)
         elif opcion == "8":
             inicio, fin, nombre = obtener_rango_fecha('mes_actual')
             with open(archivo, 'r', encoding='utf-8') as f:
                 mensajes = agrupar_mensajes_generator(f)
+                mensajes = resolve_remitentes_generator(mensajes, contactos_map)
                 conteo = contar_por_remitente_from_generator(mensajes, inicio, fin)
             mostrar_menos_hablador(conteo, nombre)
         elif opcion == "9":
             inicio, fin, nombre = obtener_rango_fecha('año_actual')
             with open(archivo, 'r', encoding='utf-8') as f:
                 mensajes = agrupar_mensajes_generator(f)
+                mensajes = resolve_remitentes_generator(mensajes, contactos_map)
                 conteo = contar_por_remitente_from_generator(mensajes, inicio, fin)
             mostrar_menos_hablador(conteo, nombre)
         elif opcion == "10":
             inicio, fin, nombre = obtener_rango_fecha('año_anterior')
             with open(archivo, 'r', encoding='utf-8') as f:
                 mensajes = agrupar_mensajes_generator(f)
+                mensajes = resolve_remitentes_generator(mensajes, contactos_map)
                 conteo = contar_por_remitente_from_generator(mensajes, inicio, fin)
             mostrar_menos_hablador(conteo, nombre)
         elif opcion == "11":

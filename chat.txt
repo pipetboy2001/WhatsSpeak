@@ -1,6 +1,0 @@
-# Este archivo contendra la exportación de un chat de WhatsApp.
-# La siguiente información será procesada por el programa para analizar los mensajes
-# de diferentes períodos (todos los tiempos, mes, año, etc.).
-
-# Nota: Reemplaza este texto por la exportación real del chat de WhatsApp cuando la tengas disponible.
-
